@@ -26,14 +26,15 @@ const fields = [
   "coverageClause",
   "definitions",
   "classificationStructure",
+  "fairWorkLibrary",
   "agreementCheck"
 ];
 
 const examples = [
   {
     title: "Software Engineer in manufacturing",
-    tag: "Occupational award review",
-    text: "A manufacturing company hires a Software Engineer to design and maintain internal production systems. Even if many employees are covered by the Manufacturing Award, the software role may not fit manufacturing classifications. Because the employee performs specialised professional IT duties, an occupational award such as the Professional Employees Award may need to be assessed instead."
+    tag: "Industry and occupational coverage",
+    text: "A manufacturing company hires a Software Engineer to design and maintain internal production systems. The Manufacturing Award can have occupational coverage as well as industry coverage, and Fair Work Library guidance gives occupational-basis examples for trade-qualified maintenance work. HR should still test whether the Manufacturing Award contains a relevant occupational or classification pathway. If it does not fit the role, an occupational award such as the Professional Employees Award may also need to be assessed."
   },
   {
     title: "Cleaner at a pharmacy",
@@ -59,8 +60,10 @@ const methodSteps = [
     actions: [
       "Open the suspected award and read the coverage clause.",
       "Check whether it covers the employer's industry, the employee's occupation, or both.",
+      "Remember that some awards are not purely one or the other. For example, Fair Work guidance shows the Manufacturing Award can have occupational coverage as well as industry coverage.",
       "Read definitions that control key terms used in coverage.",
-      "Read exclusions before relying on the award."
+      "Read exclusions before relying on the award.",
+      "Check the Fair Work Library for award coverage guidance before finalising the view."
     ],
     output: "A short note naming the award reviewed, the relevant coverage wording, and any exclusions that may matter."
   },
@@ -103,8 +106,9 @@ const methodSteps = [
     actions: [
       "Check whether an occupational award covers the employee's actual role or profession.",
       "Common examples from the uploaded material include Clerks Award, Professional Employees Award, and Commercial Sales Award.",
+      "Do not assume a named industry award has no occupational reach. Check the award itself and Fair Work Library guidance; the Manufacturing Award is a useful reminder that some awards can operate across both industry and occupation-style coverage.",
       "Check whether the occupational award excludes the industry award or whether another award is more appropriate.",
-      "Document why one award is preferred over another."
+      "Search the Fair Work Library for coverage guidance, then document why one award is preferred over another."
     ],
     output: "A competing coverage note explaining whether the role is better treated under an occupational award."
   },
@@ -124,14 +128,14 @@ const methodSteps = [
 const awardTypes = [
   {
     title: "Industry awards",
-    summary: "Cover employees working in a specific industry where the employer's business and the employee's duties are captured.",
+    summary: "Cover employees working in a specific industry where the employer's business and the employee's duties are captured. Some awards also contain occupational-style coverage, so read the coverage clause carefully.",
     examples: "Examples: General Retail Industry Award, Hospitality Industry (General) Award, Social, Community, Home Care and Disability Services Industry Award, Dry Cleaning and Laundry Industry Award.",
-    test: "Ask: does the employer operate in an industry covered by a modern award, and does the employee perform work captured by that award?"
+    test: "Ask: does the employer operate in an industry covered by a modern award, and does the employee perform work captured by that award? Also ask whether the award has occupational coverage. Fair Work Library guidance shows the Manufacturing Award can apply this way in some circumstances."
   },
   {
     title: "Occupational awards",
     summary: "Consider where there is no industry award, where an industry award has no relevant classification for the employee, or where an occupational award is relevant and competing coverage must be considered.",
-    examples: "Examples: Professional Employees Award, Commercial Sales Award, Clerks Award.",
+    examples: "Examples: Professional Employees Award, Commercial Sales Award, Clerks Award. Note: the Manufacturing Award can also have occupational coverage, including Fair Work Library examples involving trade-qualified maintenance work, so check the award wording before treating it as only an industry award.",
     test: "Ask: is there an occupational award covering the employee's actual role or profession?"
   },
   {
@@ -169,6 +173,7 @@ function calculateEvidence(state) {
     state.coverageClause,
     state.definitions,
     state.classificationStructure,
+    state.fairWorkLibrary,
     state.agreementCheck
   ];
   return Math.round((important.filter(Boolean).length / important.length) * 100);
@@ -197,7 +202,7 @@ function analyse(state) {
       title: "Likely industry award path",
       summary: "An industry award appears to cover the employer and the employee's duties. Validate the coverage clause, exclusions, and classification level before relying on it.",
       steps: [
-        ["Confirm coverage", "Check the award coverage clause, definitions, exclusions, and any enterprise agreement."],
+        ["Confirm coverage", "Check the award coverage clause, definitions, exclusions, Fair Work Library guidance, and any enterprise agreement."],
         ["Classify the role", "Match actual duties to the classification descriptors, not just the position title."],
         ["Record the rationale", "Keep a file note showing the business activity, role duties, classification selected, and unresolved assumptions."]
       ]
@@ -211,7 +216,7 @@ function analyse(state) {
       steps: [
         ["Test competing coverage", "Check whether the occupational award excludes or gives way to a relevant industry award."],
         ["Match duties to classification", "Use the employee's regular duties, skill level, qualifications, and autonomy to select the classification."],
-        ["Validate current source", "Use current Fair Work resources and award text before confirming pay or conditions."]
+        ["Validate current source", "Use current Fair Work resources, the Fair Work Library, and award text before confirming pay or conditions."]
       ]
     };
   }
@@ -245,7 +250,7 @@ function analyse(state) {
       title: "Evidence gap",
       summary: "One or more coverage questions is unclear. Pause the conclusion and gather enough evidence to choose between industry, occupational, Miscellaneous Award, or award-free review.",
       steps: [
-        ["Review source text", "Start with coverage clauses, definitions, exclusions, and classification structures."],
+        ["Review source text", "Start with coverage clauses, definitions, exclusions, classification structures, and Fair Work Library guidance."],
         ["Interview the manager", "Ask what the employee actually does, what customers pay for, and whether the activity is incidental or separate."],
         ["Use official tools", "Check current Fair Work award resources and the Pay and Conditions Tool where appropriate."]
       ]
@@ -363,6 +368,7 @@ function exportBrief() {
     `Professional or specialist: ${state.professional ? "Yes" : "No"}`,
     `High autonomy: ${state.highAutonomy ? "Yes" : "No"}`,
     `Support or operational: ${state.supportOperational ? "Yes" : "No"}`,
+    `Fair Work Library checked: ${state.fairWorkLibrary ? "Yes" : "No"}`,
     "",
     "## Guidance",
     `Outcome: ${result.title}`,
