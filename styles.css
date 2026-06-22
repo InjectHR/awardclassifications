@@ -74,8 +74,7 @@ a {
   text-transform: uppercase;
 }
 
-.topbar-actions,
-.chat-actions {
+.topbar-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -365,10 +364,77 @@ select:focus {
   line-height: 1.55;
 }
 
+.method-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.method-item {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  background: var(--surface);
+}
+
+.method-number {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--accent);
+  font-size: 18px;
+  font-weight: 850;
+}
+
+.method-item h3,
+.type-panel h3,
+.comparison-panel h3 {
+  margin: 0 0 8px;
+}
+
+.method-item p,
+.method-item li,
+.type-panel p,
+.comparison-panel li {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.method-item p {
+  margin: 0 0 10px;
+}
+
+.method-item ul,
+.comparison-panel ul {
+  margin: 0 0 12px;
+  padding-left: 20px;
+}
+
+.output-note,
+.test-note {
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.type-grid,
+.comparison-grid,
 .question-columns {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 22px;
+}
+
+.type-panel,
+.comparison-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 18px;
+  background: var(--surface);
 }
 
 .question-columns ul,
@@ -401,38 +467,6 @@ select:focus {
   font-weight: 800;
 }
 
-.coach-layout {
-  display: grid;
-  gap: 16px;
-}
-
-.chat-panel {
-  display: grid;
-  gap: 10px;
-  min-height: 180px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 16px;
-  background: var(--surface);
-}
-
-.message {
-  max-width: 820px;
-  border-radius: 8px;
-  padding: 12px 14px;
-  line-height: 1.5;
-}
-
-.bot {
-  background: var(--soft);
-}
-
-.coach {
-  margin-left: auto;
-  background: #edf7f3;
-  border: 1px solid #cde4dc;
-}
-
 .sources {
   padding-bottom: 10px;
 }
@@ -456,7 +490,7 @@ select:focus {
   }
 
   .sidebar nav {
-    grid-template-columns: repeat(5, minmax(max-content, 1fr));
+    grid-template-columns: repeat(6, minmax(max-content, 1fr));
     overflow-x: auto;
   }
 
@@ -467,7 +501,13 @@ select:focus {
   .section-heading,
   .analysis-layout,
   .question-columns,
+  .type-grid,
+  .comparison-grid,
   .example-list {
+    grid-template-columns: 1fr;
+  }
+
+  .method-item {
     grid-template-columns: 1fr;
   }
 }
